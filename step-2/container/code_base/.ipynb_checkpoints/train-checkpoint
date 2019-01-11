@@ -1,0 +1,110 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+
+import os
+import json
+import pickle
+import sys
+import traceback
+
+#BEGIN - ADD YOUR LIBRARY IMPORT BELOW
+import pandas as pd
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import KFold
+#END - ADD YOUR LIBRARY IMPORT
+
+
+#Directory paths for data channel, hyperparameter file, and model output path
+prefix = '/opt/ml/'  #for container.  Both local and SageMaker training service
+#prefix = '../opt/ml/' #for local testing without using container
+
+input_path = prefix + 'input/data'
+output_path = os.path.join(prefix, 'output')
+model_path = os.path.join(prefix, 'model')
+param_path = os.path.join(prefix, 'input/config/hyperparameters.json')
+
+channel_name='train'
+training_path = os.path.join(input_path, channel_name)
+channel_name='validation'
+validation_path = os.path.join(input_path, channel_name)
+
+
+# The function to execute the training.
+def train():
+    print('Starting the training.')
+    try:
+        # Read in any hyperparameters that the user passed with the training job
+        with open(param_path, 'r') as tc:
+            trainingParams = json.load(tc)
+        
+        print (trainingParams)
+        
+        
+        # Take the set of files and read them all into a single pandas dataframe
+        # Loading training dataset
+        input_files = [ os.path.join(training_path, file) for file in os.listdir(training_path) ]
+        print(input_files)
+        if len(input_files) == 0:
+            raise ValueError(('There are no files in {}.\n' +
+                              'This usually indicates that the channel ({}) was incorrectly specified,\n' +
+                              'the data specification in S3 was incorrectly specified or the role specified\n' +
+                              'does not have permission to access the data.').format(training_path, channel_name))
+        raw_data = [ pd.read_csv(file, header=None) for file in input_files ]
+        train_data = pd.concat(raw_data)
+        
+        
+        # Loading validation dataset if available. Comment out the section below if you do not have a validation data.
+        input_files = [ os.path.join(training_path, file) for file in os.listdir(validation_path) ]
+        #print(input_files)
+        validation_data = None
+        if len(input_files) > 0:
+            raw_data = [ pd.read_csv(file, header=None) for file in input_files ]
+            validation_data = pd.concat(raw_data)
+            print('validation data found')
+        
+        #BEGIN - ADD YOUR DATA PROCESSING CODE BELOW. 
+        
+        
+       
+     
+        # BEGIN - ADD PRINT EVALUTAION METRIC BELOW 
+        # This will be output to CloudWatch logs and it can be used for hyperaramter tuning if needed.
+        # e.g. print ('accuracy:'+str(acc_num))
+    
+        
+        # END - PRINT EVALUATION METRIC
+        
+        # BEGIN - ADD MODEL SAVING CODE BELOW (The code below is for example only.  Replace with your code.)
+        # Enter a string value for model name(e.g. model.pkl), assign your model handle to the model variable below
+            
+        print('training complete.')
+        
+        # END - MODEL SAVING CODE
+        
+    except Exception as e:
+        # Write out an error file. This will be returned as the failureReason in the
+        # DescribeTrainingJob result.
+        trc = traceback.format_exc()
+        with open(os.path.join(output_path, 'failure'), 'w') as s:
+            s.write('Exception during training: ' + str(e) + '\n' + trc)
+        # Printing this causes the exception to be in the training job logs, as well.
+        # print('Exception during training: ' + str(e) + '\n' + trc, file=sys.stderr)
+        # A non-zero exit code causes the training job to be marked as Failed.
+        sys.exit(255)
+                 
+
+
+if __name__ == '__main__':
+    train()
+
+    # A zero exit code causes the job to be marked a Succeeded.
+    sys.exit(0)
+
+
+
+
+
+
+
