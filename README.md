@@ -98,6 +98,6 @@ Follow the steps below to get started:
     
     - Type the command below to download the content
     
-    > `git clone <git repo url>`
+    > `git clone https://github.com/dping1/SageMaker_Migration_Workshop.git`
     
 3. You should see a new folder called **SageMaker-Migration-Workshop** is created inside the left pane. Double click on the folder to list its content. There are folders named **step-x**. And inside each folder, there is a notebook that starts wtih **step-x-instruction.ipynb**. Start with **step-1** and follow the instruction in **step-1-instruction.ipynb** to continue with the workshop. 
