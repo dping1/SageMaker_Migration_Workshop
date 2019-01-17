@@ -1,10 +1,11 @@
 # SageMaker Migration Workshop
 
-SageMaker Migration Workshop is designed to enable data scientists/ML engineers with no or little SageMaker experience to build, train, and deploy customer's own machine learning models using SageMaker. The main outcome of the workshop will be:
- - Hands-on experience with SageMaker and AWS ML ecosystem for customer's own ML use cases
- - An AWS sandbox environment for for on-going ML experiements and testing
- - A set of working data science notebooks and training scripts for customer ML projects
- - A process and mechanism for training and deploy customer's own machine learning models for online prediction and/or batch prediction
+SageMaker Migration Workshop is designed to enable data scientists/ML engineers with no or little SageMaker experience to build, train, and deploy customer's own machine learning models using SageMaker. The primary outcome of the workshop will be:
+
+   - Hands-on experience with SageMaker and AWS ML ecosystem for customer's own ML use cases
+   - An AWS sandbox environment for on-going ML experiments and testing
+   - A set of working data science notebooks and training scripts for customer ML projects
+   - A process and mechanism for training and deploy customer's own machine learning models for online prediction and/or batch prediction
  
 
 ## Pre-requisite
@@ -85,13 +86,13 @@ Follow the steps below to get started:
              - on the pop up screen, select **Specific S3 Bucket** and enter the bucket name for the lab
          - Change **volume size in GB** if need more than 5GB for data storage for the notebook instance
          - Leave other as defaults
-         - Click on **Create Notenook Instance**
+         - Click on **Create Notebook Instance**
     - After the status changes to **InService**, click on **Open JupyterLab** to launch the Jupyter Notebook
     
              
 2. Once you are inside the JupyterLab environment, follow the instruction below to download the content
 
-    - Click the **Teminal** icon in the Launcher pane.
+    - Click the **Terminal** icon in the Launcher pane.
     - Type the command below inside the terminal to get into the CD SageMaker directory
      
     > `cd SageMaker`
@@ -100,4 +101,4 @@ Follow the steps below to get started:
     
     > `git clone https://github.com/dping1/SageMaker_Migration_Workshop.git`
     
-3. You should see a new folder called **SageMaker-Migration-Workshop** is created inside the left pane. Double click on the folder to list its content. There are folders named **step-x**. And inside each folder, there is a notebook that starts wtih **step-x-instruction.ipynb**. Start with **step-1** and follow the instruction in **step-1-instruction.ipynb** to continue with the workshop. 
+3. You should see a new folder called **SageMaker-Migration-Workshop** is created inside the left pane. Double click on the folder to list its content. There are folders named **step-x**. And inside each folder, there is a notebook that starts with **step-x-instruction.ipynb**. Start with **step-1** and follow the instruction in **step-1-instruction.ipynb** to continue with the workshop. 
